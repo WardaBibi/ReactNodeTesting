@@ -17,8 +17,15 @@ jobs:
     steps:
       - name: cloning repository
         uses: actions/checkout@v4
-      - name: Building and running nodejs app
-      - run: npm install
-      - run: npm run build-react
-      - run: npm run start-node
+      - name: Install Dependencies
+        run: |
+          npm install
+
+      - name: Build Project
+        run: |
+          npm run build-react
+
+      - name: Deploy to AWS Testing Server
+        run: |
+          npm run start-node
 ...
