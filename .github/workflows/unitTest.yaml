@@ -1,0 +1,23 @@
+---
+name: deploying react app for unit testing
+
+run-name: |
+              deploying react nodejs app for  unit testing on AWS
+              EC2 by ${{github.actor}}
+
+on:
+  pull-request:
+    branches:
+      - main
+  workflow-dispatch:
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cloning repository
+        uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run build-react
+      - run: npm run start-node
+...
