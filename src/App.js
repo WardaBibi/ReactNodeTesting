@@ -19,7 +19,7 @@ function App(props) {
           <CartView shippingCost={shippingCost} cartId={props.cartId} />
           <ShippingOptions onChangeValue={handleChangeValue} />
           <button onClick={() => setMsgYNModal({
-            showMsgYNModal: true, message: "Do you agree with the purchase agreement?", methodOnClose: (decision) => {
+            showMsgYNModal: true, message: "Are you sure that you agree with the purchase agreement?", methodOnClose: (decision) => {
               setMsgYNModal({ msgYNModalState: { showMsgYNModal: false, message: "", methodOnClose: ()=>{} } })
             }
           })} >
