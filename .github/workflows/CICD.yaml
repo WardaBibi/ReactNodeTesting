@@ -16,7 +16,8 @@ jobs:
 
       - run: npm install
       - run: npm run build-react
-      - run: npm run  test
+      - run: npm run test-API
+      - run: npm run test-react
 
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
