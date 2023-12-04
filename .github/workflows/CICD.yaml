@@ -29,6 +29,7 @@ jobs:
           host: smtp.gmail.com
           port: 465
           account: ${{secrets.MAIL_ADDRESS}}
+          from: ${{secrets.MAIL_ADDRESS}}
           password: ${{secrets.MAIL_PASSWORD}}
           sender: Warda Bibi
           subject: Github Actions job Success result
