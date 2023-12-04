@@ -1,26 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 function MsgYNModal(props) {
-  const { onClose, message, open, ...other } = props;
+  const { onClose, message, open, ...other } = props
 
   const handleCancel = () => {
-    onClose(false);
-  };
+    onClose(false)
+  }
 
   const handleOk = () => {
-    onClose(true);
-  };
+    onClose(true)
+  }
 
   return (
     <Dialog
-      aria-labelledby="confirmation-dialog-title"
+      aria-labelledby='confirmation-dialog-title'
       open={open}
       onClose={(event, reason) => {
         if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
@@ -29,28 +29,26 @@ function MsgYNModal(props) {
       }}
       {...other}
     >
-      <DialogTitle id="confirmation-dialog-title">Confirmation Of Order</DialogTitle>
+      <DialogTitle id='confirmation-dialog-title'>Confirmation Of Order</DialogTitle>
       <DialogContent dividers>
-        <DialogContentText id="alert-dialog-description">
-          {message}
-        </DialogContentText>
+        <DialogContentText id='alert-dialog-description'>{message}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleCancel} color="primary">
+        <Button autoFocus onClick={handleCancel} color='primary'>
           Cancel
         </Button>
-        <Button onClick={handleOk} color="primary">
+        <Button onClick={handleOk} color='primary'>
           Ok
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }
 
 MsgYNModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired
-};
+}
 
 export default MsgYNModal

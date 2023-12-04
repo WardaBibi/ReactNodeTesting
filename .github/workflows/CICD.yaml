@@ -1,0 +1,63 @@
+---
+name: CICD pipeline for nodejs Application on EC2
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build-nodejs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: npm install
+      - run: npm run lint
+      - run: npm run format
+      - run: npm run build-react
+      - run: npm run test-API
+      - run: npm run test-react
+      
+      # - name: On Failure
+      #   if: ${{ failure() }}
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     connection_url: ${{ secrets.EMAIL_URL }}
+      #     server_address: smtp.gmail.com
+      #     server_port: 465
+      #     secure: true
+      #     subject: Failed Deployed Changes on Testing Server
+      #     to: ${{ secrets.TO_EMAIL_ID }}
+      #     from: ${{ secrets.FROM_EMAIL_ID }}
+      #     body: Testing Server Workflow was unsuccessful in ${{ github.repository }} and changes were NOT deployed to the Testing Server.
+
+      # - name: On Success
+      #   if: ${{ success() }}
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     connection_url: ${{ secrets.EMAIL_URL }}
+      #     server_address: smtp.gmail.com
+      #     server_port: 465
+      #     secure: true
+      #     subject: Successfully Deployed Changes on Testing Server
+      #     to: ${{ secrets.TO_EMAIL_ID }}
+      #     from: ${{ secrets.FROM_EMAIL_ID }}
+      #     body: Testing Server Workflow was successfully executed in ${{ github.repository }} and changes were deployed to the Testing Server.
+
+
+
+      - name: rsync deployments
+        if: ${{ success() }}
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /var/www/my-app/
+          remote_host: ec2-54-162-199-140.compute-1.amazonaws.com
+          remote_user: ubuntu
+          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+...

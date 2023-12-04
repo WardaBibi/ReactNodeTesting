@@ -1,17 +1,13 @@
-import React from 'react';
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import App from './App';
+import App from './App'
 
-jest.mock("./cartItem", () => {
+jest.mock('./cartItem', () => {
   return function DummyCartItem(props) {
-    return (
-      <div data-testid="dummycartitem">
-        Dummy CartItem
-      </div>
-    );
-  };
-});
+    return <div data-testid='dummycartitem'>Dummy CartItem</div>
+  }
+})
 
 describe('Test Suite for App Component', () => {
   beforeAll(() => jest.spyOn(window, 'fetch'))
@@ -22,30 +18,29 @@ describe('Test Suite for App Component', () => {
       status: 200,
       ok: true,
       json: async () => ({
-        cartID: "777",
+        cartID: '777',
         cartItems: [
           {
-            title: "TestItemOneTitle",
-            description: "TestItemOneDesc",
+            title: 'TestItemOneTitle',
+            description: 'TestItemOneDesc',
             cost: 111,
-            imageUrl: "https://m.media-amazon.com/images/I/51VCKN8qupL._AC_UL320_.jpg"
+            imageUrl: 'https://m.media-amazon.com/images/I/51VCKN8qupL._AC_UL320_.jpg'
           }
         ]
-      }),
+      })
     })
 
-    render(<App cartId={777} />);
-    expect(await screen.findByTestId("dummycartitem")).toBeInTheDocument();
+    render(<App cartId={777} />)
+    expect(await screen.findByTestId('dummycartitem')).toBeInTheDocument()
     expect(screen.getByTestId('dummycartitem')).toHaveTextContent('Dummy CartItem')
-  });
-});
+  })
+})
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXX
 // To mock a function of a returned module like the os module of Node.js
 // jest.mock('os', () => {
 //   return { hostname: () => 'my-computer' }
 // })
-
 
 // import { loadStripe } from '@stripe/stripe-js';
 // jest.mock('@stripe/stripe-js', () => {
@@ -101,4 +96,3 @@ describe('Test Suite for App Component', () => {
 
 // // Back in the test code
 // jest.clearAllMocks();
-

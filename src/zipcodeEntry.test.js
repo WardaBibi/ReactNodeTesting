@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import ZipcodeEntry from './zipcodeEntry';
+import ZipcodeEntry from './zipcodeEntry'
 
 describe('Test Suite for CartView Component', () => {
   beforeAll(() => jest.spyOn(window, 'fetch'))
@@ -12,11 +12,11 @@ describe('Test Suite for CartView Component', () => {
       status: 200,
       ok: true,
       json: async () => ({
-        zipcode: "12345",
-        taxrate: .1
-      }),
+        zipcode: '12345',
+        taxrate: 0.1
+      })
     })
 
-    render(<ZipcodeEntry zipcode={12345} onChangeTax={()=>{}} />);
-  });
-});
+    render(<ZipcodeEntry zipcode={12345} onChangeTax={() => {}} />)
+  })
+})
