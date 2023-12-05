@@ -20,54 +20,50 @@ jobs:
       - run: npm run build-react
       - run: npm run test-API
       - run: npm run test-react
-      
-      # - name: On Failure
-      #   if: ${{ failure() }}
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     connection_url: ${{ secrets.EMAIL_URL }}
-      #     server_address: smtp.gmail.com
-      #     server_port: 465
-      #     secure: true
-      #     subject: Failed Deployed Changes on Testing Server
-      #     to: ${{ secrets.TO_EMAIL_ID }}
-      #     from: ${{ secrets.FROM_EMAIL_ID }}
-      #     body: Testing Server Workflow was unsuccessful in ${{ github.repository }} and changes were NOT deployed to the Testing Server.
 
-      # - name: On Success
-      #   if: ${{ success() }}
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     connection_url: ${{ secrets.EMAIL_URL }}
-      #     server_address: smtp.gmail.com
-      #     server_port: 465
-      #     secure: true
-      #     subject: Successfully Deployed Changes on Testing Server
-      #     to: ${{ secrets.TO_EMAIL_ID }}
-      #     from: ${{ secrets.FROM_EMAIL_ID }}
-      #     body: Testing Server Workflow was successfully executed in ${{ github.repository }} and changes were deployed to the Testing Server.
-
-
-<<<<<<< HEAD
-      - name: on Success
-        if: ${{ success() }}
-        uses: devellany/send-mail@v1.0.2
+      - name: Send mail on failure
+        if: ${{ failure() }}
+        uses: dawidd6/action-send-mail@v3
         with:
-          host: smtp.gmail.com
-          port: 465
-          account: ${{secrets.MAIL_ADDRESS}}
-          from: ${{secrets.MAIL_ADDRESS}}
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+         # # Optional (recommended) mail server username:
+          username: ${{secrets.MAIL_ADDRESS}}
+          # Optional (recommended) mail server password:
           password: ${{secrets.MAIL_PASSWORD}}
-          sender: Warda Bibi
-          subject: Github Actions job Success result
+          # Required mail subject:
+          subject: Failed Deploying Changes on Testing Server
+          # Required recipients' addresses:
+          to: codewithwarda@gmail.com,wardahtariq38@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Warda Bibi
           body: |
-                Testing Server Workflow was successfully executed in
-                ${{ github.repository }}
-                and changes were deployed to the Testing Server.
-          to: wardahtariq38@gmail.com
-          contentType: text/plain
-=======
->>>>>>> ba217dabd1776684c93d544f56c2ed398ce5d798
+                  Testing Server Workflow was unsuccessful
+                  in ${{ github.repository }} and
+                  changes were NOT deployed to the Testing Server.
+
+      - name: Send mail on success
+        if: ${{ success() }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+         # # Optional (recommended) mail server username:
+          username: ${{secrets.MAIL_ADDRESS}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Successfully Deploying Changes on Testing Server
+          # Required recipients' addresses:
+          to: codewithwarda@gmail.com,wardahtariq38@gmail.com
+          # Required sender full name (address can be skipped):
+          from: Warda Bibi
+          body: |
+                 Testing Server Workflow was successful
+                 in ${{ github.repository }} and changes were
+                 deployed to the Testing Server.
 
       - name: rsync deployments
         if: ${{ success() }}
@@ -81,3 +77,14 @@ jobs:
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
 
 ...
+
+
+
+
+
+
+
+
+
+
+
